@@ -14,6 +14,14 @@
 
 @implementation JsApiTest
 
+- (void)readJson
+{
+    NSData *JSONData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Module"ofType:@"json"]];
+
+    NSDictionary*dic = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingAllowFragments error:nil];
+    
+    NSLog(@"%@",dic);
+}
 
 - (id) syn:(id) arg
 {
@@ -24,6 +32,13 @@
 - (void) asyn: (id) arg :(JSCallback)completionHandler
 {
     NSLog(@"%@",arg);
+    NSData *JSONData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Module"ofType:@"json"]];
+
+    NSDictionary*dic = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingAllowFragments error:nil];
+    
+    NSLog(@"%@",dic);
+    
+    
     completionHandler(arg,YES);
 }
 

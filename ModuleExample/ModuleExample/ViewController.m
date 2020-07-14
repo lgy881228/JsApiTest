@@ -19,7 +19,8 @@
     [super viewDidLoad];
     
     CGRect bounds=self.view.bounds;
-       
+//    JsApiTest *jsonread = [[JsApiTest alloc] init];
+//    [jsonread readJson];
        DWKWebView * dwebview=[[DWKWebView alloc] initWithFrame:CGRectMake(0, 25, bounds.size.width, bounds.size.height-25)];
        [self.view addSubview:dwebview];
        

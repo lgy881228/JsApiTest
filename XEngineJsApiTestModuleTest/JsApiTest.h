@@ -11,4 +11,5 @@
 
 @interface JsApiTest : NSObject
 @property (nonatomic, strong) UIViewController * vc;
+- (void)readJson;
 @end
