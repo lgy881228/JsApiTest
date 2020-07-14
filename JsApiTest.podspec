@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
 
 
     s.name         = "JsApiTest"
-    s.version      = "1.0.2"
+    s.version      = "1.0.3"
     s.summary      = "测试模块打包和方法调用"
 
      s.description  = <<-DESC
@@ -37,8 +37,8 @@ Pod::Spec.new do |s|
     s.source_files  = "XEngineJsApiTestModuleTest/*.{h,m}"
     s.public_header_files = "XEngineJsApiTestModuleTest/*.h"
    # s.dependency 'AFNetworking','~> 4.0'
-   # s.dependency 'JSONModel'
-   # s.frameworks  = "UIKit","AVFoundation","Foundation","AFNetworking","JSONModel","CoreServices"
+     s.dependency 'dsBridge'
+    s.frameworks  = "UIKit","AVFoundation","Foundation","dsBridge"
 
     s.pod_target_xcconfig = {'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'}
 

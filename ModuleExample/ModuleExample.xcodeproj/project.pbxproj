@@ -16,7 +16,6 @@
 		00E3057424BD7010001303AD /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 00E3057224BD7010001303AD /* test.html */; };
 		00E3057524BD7010001303AD /* dsbridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 00E3057324BD7010001303AD /* dsbridge.js */; };
 		00E3057724BD73CC001303AD /* Module.json in Resources */ = {isa = PBXBuildFile; fileRef = 00E3057624BD73CB001303AD /* Module.json */; };
-		00E305AC24BD8135001303AD /* JsApiTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E305AA24BD8135001303AD /* JsApiTest.m */; };
 		AB7121E0BFF7F3EA14BB47E3 /* Pods_ModuleExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E00A101A25A86710FB2417 /* Pods_ModuleExample.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,8 +33,6 @@
 		00E3057224BD7010001303AD /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
 		00E3057324BD7010001303AD /* dsbridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = dsbridge.js; sourceTree = "<group>"; };
 		00E3057624BD73CB001303AD /* Module.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Module.json; sourceTree = "<group>"; };
-		00E305AA24BD8135001303AD /* JsApiTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JsApiTest.m; path = ../../XEngineJsApiTestModuleTest/JsApiTest.m; sourceTree = "<group>"; };
-		00E305AB24BD8135001303AD /* JsApiTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JsApiTest.h; path = ../../XEngineJsApiTestModuleTest/JsApiTest.h; sourceTree = "<group>"; };
 		2135D041398AD621BE7314E4 /* Pods-ModuleExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModuleExample.release.xcconfig"; path = "Target Support Files/Pods-ModuleExample/Pods-ModuleExample.release.xcconfig"; sourceTree = "<group>"; };
 		55E00A101A25A86710FB2417 /* Pods_ModuleExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ModuleExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		83903F105020DD6CB22DD2CD /* Pods-ModuleExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModuleExample.debug.xcconfig"; path = "Target Support Files/Pods-ModuleExample/Pods-ModuleExample.debug.xcconfig"; sourceTree = "<group>"; };
@@ -74,8 +71,6 @@
 		00E3055824BD6517001303AD /* ModuleExample */ = {
 			isa = PBXGroup;
 			children = (
-				00E305AB24BD8135001303AD /* JsApiTest.h */,
-				00E305AA24BD8135001303AD /* JsApiTest.m */,
 				00E3057624BD73CB001303AD /* Module.json */,
 				00E3057324BD7010001303AD /* dsbridge.js */,
 				00E3057224BD7010001303AD /* test.html */,
@@ -227,7 +222,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				00E3056124BD6517001303AD /* ViewController.m in Sources */,
-				00E305AC24BD8135001303AD /* JsApiTest.m in Sources */,
 				00E3055B24BD6517001303AD /* AppDelegate.m in Sources */,
 				00E3056C24BD6519001303AD /* main.m in Sources */,
 			);

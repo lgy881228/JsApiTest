@@ -4,9 +4,9 @@
 target 'ModuleExample' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-  pod "dsBridge"
-
- pod 'XEngineAlertModuleTest'
+  pod 'dsBridge'
+  pod 'JsApiTest'
+  pod 'XEngineAlertModuleTest'
   # Pods for ModuleExample
 
 end
