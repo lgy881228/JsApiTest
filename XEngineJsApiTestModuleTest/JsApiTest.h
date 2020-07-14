@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "dsbridge.h"
+#import <UIKit/UIKit.h>
 
 @interface JsApiTest : NSObject
 @property (nonatomic, strong) UIViewController * vc;

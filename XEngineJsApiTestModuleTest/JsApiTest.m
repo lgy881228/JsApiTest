@@ -6,7 +6,7 @@
 //
 
 #import "JsApiTest.h"
-
+#import <dsBridge/dsbridge.h>
 
 @interface JsApiTest(){
     NSTimer * timer ;
