@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-cmn-Hans">
+        <meta charset="UTF-8">
+            <title>DSBridge Test</title>
+            <meta name="renderer" content="webkit">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+                    <meta name="viewport" content="width=device-width,initial-scale=0.5,user-scalable=no"/>
+                    <!--require dsbridge init js-->
+                    <!--    <script src="https://cdn.jsdelivr.net/npm/dsbridge/dist/dsbridge.js"> </script>-->
+                    <script src="./dsbridge.js"></script>
+                    
+                    </head>
+    <style>
+        .btn {
+            text-align: center;
+            background: #eee;
+            color: #000;
+            padding: 20px;
+            margin: 30px;
+            font-size: 24px;
+            border-radius: 4px;
+            box-shadow: 4px 2px 10px #999;
+        }
+    
+    .btn:active {
+        opacity: .7;
+        box-shadow: 4px 2px 10px #555;
+    }
+    .input {
+        
+    }
+    
+    .input:active {
+        
+    }
+    
+    
+        </style>
+    <body>
+        <div class="btn" onclick="presentDialog()">dialog</div>
+        <div class="btn" onclick="presentoffLineController()">presentoffLineController</div>
+        <div class="btn" onclick="presentcontroller()">presentcontroller</div>
+        <div class="btn" onclick="callSyn()">Synchronous call</div>
+        <div class="btn" onclick="callSyn()">hello,this is zk</div>
+        <div class="btn" onclick="callAsyn()">Asynchronous call</div>
+        <div class="btn" onclick="callSynSwift()">Syn call (swift)</div>
+        <div class="btn" onclick="callAsynSwift()">Async call(swift)</div>
+        <div class="btn" onclick="callNoArgSyn()">Sync call without argument</div>
+        <div class="btn" onclick="callNoArgAsyn()">Async call without argument</div>
+        <div class="btn" onclick="echoSyn()">echo.syn</div>
+        <div class="btn" onclick="echoAsyn()">echo.asyn</div>
+        <div class="btn" onclick="callAsyn_()">Stress test，2K times consecutive asynchronous API calls</div>
+        <div class="btn" onclick="callNever()">Never call because without @JavascriptInterface
+            annotation<br/>( This test is
+            just for Android ,should be ignored in IOS )
+        </div>
+        <div class="btn" onclick="callProgress()">call progress <span id='progress'></span></div>
+        <div class="btn" onclick="hasNativeMethod('xx')">hasNativeMethod("xx")</div>
+        <div class="btn" onclick="hasNativeMethod('testSyn')">hasNativeMethod("testSyn")</div>
+        
+        <script>
+            function presentDialog(){
+                dsBridge.call("presentDialog", "Hello")
+                //alert(dsBridge.call("presentDialog", "Hello"))
+            }
+            function presentoffLineController() {
+                dsBridge.call("presentoffLineController", null);
+            }
+            function presentcontroller() {
+                dsBridge.call("presentcontroller", null);
+            }
+            
+            function callSyn() {
+                alert(dsBridge.call("testSyn", "Hello"))
+            }
+            
+            function callAsyn() {
+                dsBridge.call("testAsyn","hello", function (v) {
+                    alert(v)
+                })
+            }
+            
+            function callSynSwift() {
+                alert(dsBridge.call("swift.testSyn", "hello"))
+            }
+            
+            function callAsynSwift() {
+                dsBridge.call("swift.testAsyn","hello", function (v) {
+                    alert(v)
+                })
+            }
+            
+            function callAsyn_() {
+                for (var i = 0; i < 2000; i++) {
+                    dsBridge.call("testAsyn",  "js+" + i, function (v) {
+                        if (v == "js+1999 [ asyn call]") {
+                            alert("All tasks completed!")
+                        }
+                    })
+                }
+            }
+            
+            function callNoArgSyn() {
+                alert(dsBridge.call("testNoArgSyn"));
+            }
+            
+            function callNoArgAsyn() {
+                dsBridge.call("testNoArgAsyn", function (v) {
+                    alert(v)
+                });
+            }
+            
+            function callNever() {
+                alert(dsBridge.call("testNever", {msg: "testSyn"}))
+            }
+            
+            function echoSyn() {
+                // call function with namespace
+                var ret=dsBridge.call("echo.syn",{msg:" I am echoSyn call", tag:1});
+                alert(JSON.stringify(ret))
+            }
+            
+            function echoAsyn() {
+                // call function with namespace
+                dsBridge.call("echo.asyn",{msg:" I am echoAsyn call",tag:2},function (ret) {
+                    alert(JSON.stringify(ret));
+                })
+            }
+            
+            function callProgress() {
+                dsBridge.call("callProgress", function (value) {
+                    if(value==0) value="";
+                    document.getElementById("progress").innerText = value
+                })
+            }
+            
+            function hasNativeMethod(name) {
+                alert(dsBridge.hasNativeMethod(name))
+            }
+            
+            
+            dsBridge.register('addValue', function (r, l) {
+                return r + l;
+            })
+            
+            dsBridge.registerAsyn('append', function (arg1, arg2, arg3, responseCallback) {
+                responseCallback(arg1 + " " + arg2 + " " + arg3);
+            })
+            
+            dsBridge.registerAsyn('startTimer', function (responseCallback) {
+                var t = 0;
+                var timer = setInterval(function () {
+                    if (t == 5) {
+                        responseCallback(t)
+                        clearInterval(timer)
+                    } else {
+                        // if the 2nd argument is false,  the java callback handler will be not removed!
+                        responseCallback(t++, false)
+                    }
+                }, 1000)
+                
+            })
+            
+            // namespace test for syn functions
+            dsBridge.register("syn", {
+                tag: "syn",
+                addValue:function (r,l) {
+                    return r+l;
+                },
+                getInfo: function () {
+                    return {tag: this.tag, value:8}
+                }
+            })
+            
+            // namespace test for asyn functions
+            dsBridge.registerAsyn("asyn", {
+                tag: "asyn",
+                addValue:function (r,l, responseCallback) {
+                    responseCallback(r+l);
+                },
+                getInfo: function (responseCallback) {
+                    responseCallback({tag: this.tag, value:8})
+                }
+            })
+            
+            // 判断设备类型
+            var judgeDeviceType = function () {
+                var ua = window.navigator.userAgent.toLocaleLowerCase();
+                var isIOS = /iphone|ipad|ipod/.test(ua);
+                var isAndroid = /android/.test(ua);
+                
+                return {
+                    isIOS: isIOS,
+                    isAndroid: isAndroid
+                }
+            }()
+            
+            // 监听输入框的软键盘弹起和收起事件
+            function listenKeybord($input) {
+                if (judgeDeviceType.isIOS) {
+                    // IOS 键盘弹起：IOS 和 Android 输入框获取焦点键盘弹起
+                    $input.addEventListener('focus', function () {
+                        console.log('IOS 键盘弹起啦！');
+                        // IOS 键盘弹起后操作
+                    }, false)
+                    
+                    // IOS 键盘收起：IOS 点击输入框以外区域或点击收起按钮，输入框都会失去焦点，键盘会收起，
+                    $input.addEventListener('blur', () => {
+                        console.log('IOS 键盘收起啦！');
+                        // IOS 键盘收起后操作
+                    })
+                }
+                
+                // Andriod 键盘收起：Andriod 键盘弹起或收起页面高度会发生变化，以此为依据获知键盘收起
+                if (judgeDeviceType.isAndroid) {
+                    var originHeight = document.documentElement.clientHeight || document.body.clientHeight;
+                    
+                    window.addEventListener('resize', function () {
+                        var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
+                        if (originHeight < resizeHeight) {
+                            console.log('Android 键盘收起啦！');
+                            // Android 键盘收起后操作
+                        } else {
+                            console.log('Android 键盘弹起啦！');
+                            // Android 键盘弹起后操作
+                        }
+                        
+                        originHeight = resizeHeight;
+                    }, false)
+                }
+            }
+            
+            var $inputs = document.querySelectorAll('.input');
+            
+            for (var i = 0; i < $inputs.length; i++) {
+                listenKeybord($inputs[i]);
+            }
+        </script>
+    </body>
+</html>
