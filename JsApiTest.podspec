@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
 
 
     s.name         = "JsApiTest"
-    s.version      = "1.0.1"
+    s.version      = "1.0.2"
     s.summary      = "测试模块打包和方法调用"
 
      s.description  = <<-DESC
