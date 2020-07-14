@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import <dsbridge.h>
+#import <dsBridge/dsbridge.h>
 #import "JsApiTest.h"
 @interface ViewController ()
 
